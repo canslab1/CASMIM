@@ -4,7 +4,9 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
-## [2.0.0] - 2025
+## v2.0.0 (2025-03-10)
+
+Complete rewrite from Borland C++ Builder to Python 3.
 
 ### Changed
 - Complete rewrite from Borland C++ Builder to Python 3 with PySide6 (Qt) GUI
@@ -18,8 +20,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - Modular Python package structure (`sars_sim/`)
 - Separate GUI module (`sars_sim/gui/`) with dedicated widgets for lattice views, charts, controls, and status bar
 - NumPy-based vectorized agent generation with normal distribution and fine-tuning
+- Incremental world-color update via dirty-set mechanism (`dirty_pids`) for efficient rendering
+- Vectorized policy application using NumPy Bernoulli trials
+- 9-panel status bar displaying real-time population counts by state
+- CITATION.cff for academic referencing
+- pyproject.toml for PEP 621 package metadata
 
-## [1.0.0] - 2003-2005
+## v1.0.0 (2003-2005)
+
+Original implementation by Chung-Yuan Huang, Chuen-Tsai Sun, Ji-Lung Hsieh, Yi-Ming Arthur Chen, and Holin Lin.
 
 ### Added
 - Original implementation in Borland C++ Builder 6
@@ -28,3 +37,5 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - 500 x 500 macro lattice and 100 x 100 micro lattice visualization
 - Super-spreader modeling and contact tracing
 - Simulation of SARS outbreaks in Singapore, Taipei, and Toronto
+- Age-stratified mortality rates (young, prime, old)
+- Dynamic policy activation/deactivation during simulation

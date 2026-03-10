@@ -1,22 +1,91 @@
 cff-version: 1.2.0
-title: "CASMIM SARS Epidemic Simulation"
-message: "If you use this software, please cite the following papers."
+title: >-
+  CASMIM: Cellular Automata with Social Mirror Identities
+  Model for SARS Epidemic Simulation
+message: >-
+  If you use this software, please cite it using the
+  metadata from this file.
 type: software
 authors:
-  - family-names: Huang
-    given-names: Chung-Yuan
-  - family-names: Sun
-    given-names: Chuen-Tsai
-  - family-names: Hsieh
-    given-names: Ji-Lung
-  - family-names: Chen
-    given-names: Yi-Ming Arthur
-  - family-names: Lin
-    given-names: Holin
+  - given-names: Chung-Yuan
+    family-names: Huang
+    affiliation: >-
+      Department of Computer Science and Information
+      Engineering, Chang Gung University, Taiwan
+    email: gscott@mail.cgu.edu.tw
+  - given-names: Chuen-Tsai
+    family-names: Sun
+    affiliation: >-
+      Department of Computer Science, National Yang Ming
+      Chiao Tung University, Taiwan
+  - given-names: Ji-Lung
+    family-names: Hsieh
+    affiliation: >-
+      Graduate Institute of Journalism, National Taiwan
+      University, Taiwan
+  - given-names: Yi-Ming Arthur
+    family-names: Chen
+    affiliation: >-
+      Department of Information Management, National
+      Central University, Taiwan
+  - given-names: Holin
+    family-names: Lin
+    affiliation: >-
+      Department of Sociology, National Taiwan University,
+      Taiwan
+repository-code: 'https://github.com/canslab1/CASMIM'
+url: 'https://github.com/canslab1/CASMIM'
+abstract: >-
+  A small-world epidemiological simulation model that
+  combines cellular automata on a 2D torus lattice with
+  social mirror identities to simulate SARS transmission
+  dynamics and evaluate eight public health policy
+  interventions. The model uses an SEIR+D compartmental
+  framework with contact tracing, super-spreader modeling,
+  and age-stratified mortality. Originally developed in
+  Borland C++ Builder (2003-2005), now ported to Python 3
+  with a PySide6 (Qt) GUI.
+keywords:
+  - SARS
+  - epidemic simulation
+  - cellular automata
+  - social mirror identity
+  - small-world network
+  - public health policy
+  - SEIR model
+  - agent-based modeling
+  - computational epidemiology
 license: MIT
+version: 2.0.0
+date-released: '2025-03-10'
+preferred-citation:
+  type: article
+  authors:
+    - given-names: Chung-Yuan
+      family-names: Huang
+    - given-names: Chuen-Tsai
+      family-names: Sun
+    - given-names: Ji-Lung
+      family-names: Hsieh
+    - given-names: Yi-Ming Arthur
+      family-names: Chen
+    - given-names: Holin
+      family-names: Lin
+  title: >-
+    A Novel Small-World Model: Using Social Mirror
+    Identities for Epidemic Simulations
+  journal: SIMULATION
+  volume: 81
+  issue: 10
+  start: 671
+  end: 699
+  year: 2005
+  doi: 10.1177/0037549705061519
 references:
   - type: article
-    title: "Simulating SARS: Small-World Epidemiological Modeling and Public Health Policy Assessments"
+    title: >-
+      Simulating SARS: Small-World Epidemiological Modeling
+      and Public Health Policy Assessments
     authors:
       - family-names: Huang
         given-names: Chung-Yuan
@@ -26,28 +95,8 @@ references:
         given-names: Ji-Lung
       - family-names: Lin
         given-names: Holin
-    journal: "Journal of Artificial Societies and Social Simulation"
+    journal: Journal of Artificial Societies and Social Simulation
     volume: 7
     issue: 4
     year: 2004
-    url: "http://jasss.soc.surrey.ac.uk/7/4/2.html"
-  - type: article
-    title: "A Novel Small-World Model: Using Social Mirror Identities for Epidemic Simulations"
-    authors:
-      - family-names: Huang
-        given-names: Chung-Yuan
-      - family-names: Sun
-        given-names: Chuen-Tsai
-      - family-names: Hsieh
-        given-names: Ji-Lung
-      - family-names: Chen
-        given-names: Yi-Ming Arthur
-      - family-names: Lin
-        given-names: Holin
-    journal: "SIMULATION"
-    volume: 81
-    issue: 10
-    start: 671
-    end: 699
-    year: 2005
-    doi: "10.1177/0037549705061519"
+    url: 'http://jasss.soc.surrey.ac.uk/7/4/2.html'

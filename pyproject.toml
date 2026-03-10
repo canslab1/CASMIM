@@ -46,7 +46,7 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/canslab1/casmim-sars-simulation"
+Homepage = "https://github.com/canslab1/CASMIM"
 
 [project.scripts]
 casmim-sars = "main:main"
