@@ -1,6 +1,6 @@
 [build-system]
 requires = ["setuptools>=68.0", "wheel"]
-build-backend = "setuptools.backends._legacy:_Backend"
+build-backend = "setuptools.build_meta"
 
 [project]
 name = "casmim-sars-simulation"
@@ -10,7 +10,7 @@ readme = "README.md"
 license = {text = "MIT"}
 requires-python = ">=3.10"
 authors = [
-    {name = "Chung-Yuan Huang"},
+    {name = "Chung-Yuan Huang", email = "gscott@mail.cgu.edu.tw"},
     {name = "Chuen-Tsai Sun"},
     {name = "Ji-Lung Hsieh"},
     {name = "Yi-Ming Arthur Chen"},
@@ -27,13 +27,14 @@ keywords = [
     "CASMIM",
 ]
 classifiers = [
-    "Development Status :: 4 - Beta",
+    "Development Status :: 5 - Production/Stable",
     "Intended Audience :: Science/Research",
     "License :: OSI Approved :: MIT License",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
     "Topic :: Scientific/Engineering :: Medical Science Apps.",
     "Topic :: Scientific/Engineering :: Bio-Informatics",
 ]
@@ -47,6 +48,8 @@ dependencies = [
 
 [project.urls]
 Homepage = "https://github.com/canslab1/CASMIM"
+Repository = "https://github.com/canslab1/CASMIM"
+Issues = "https://github.com/canslab1/CASMIM/issues"
 
 [project.scripts]
 casmim-sars = "main:main"
