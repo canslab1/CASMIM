@@ -1,0 +1,53 @@
+cff-version: 1.2.0
+title: "CASMIM SARS Epidemic Simulation"
+message: "If you use this software, please cite the following papers."
+type: software
+authors:
+  - family-names: Huang
+    given-names: Chung-Yuan
+  - family-names: Sun
+    given-names: Chuen-Tsai
+  - family-names: Hsieh
+    given-names: Ji-Lung
+  - family-names: Chen
+    given-names: Yi-Ming Arthur
+  - family-names: Lin
+    given-names: Holin
+license: MIT
+references:
+  - type: article
+    title: "Simulating SARS: Small-World Epidemiological Modeling and Public Health Policy Assessments"
+    authors:
+      - family-names: Huang
+        given-names: Chung-Yuan
+      - family-names: Sun
+        given-names: Chuen-Tsai
+      - family-names: Hsieh
+        given-names: Ji-Lung
+      - family-names: Lin
+        given-names: Holin
+    journal: "Journal of Artificial Societies and Social Simulation"
+    volume: 7
+    issue: 4
+    year: 2004
+    url: "http://jasss.soc.surrey.ac.uk/7/4/2.html"
+  - type: article
+    title: "A Novel Small-World Model: Using Social Mirror Identities for Epidemic Simulations"
+    authors:
+      - family-names: Huang
+        given-names: Chung-Yuan
+      - family-names: Sun
+        given-names: Chuen-Tsai
+      - family-names: Hsieh
+        given-names: Ji-Lung
+      - family-names: Chen
+        given-names: Yi-Ming Arthur
+      - family-names: Lin
+        given-names: Holin
+    journal: "SIMULATION"
+    volume: 81
+    issue: 10
+    start: 671
+    end: 699
+    year: 2005
+    doi: "10.1177/0037549705061519"
