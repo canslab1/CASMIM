@@ -26,6 +26,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - Swapped Save/Print button order (Save before Print), Stop/Go button order (Stop before Go)
 - Label "avg." → "Runs", "Attr." → "Attribute", "day" → "day(s), contact"
 - Control bar reorganized into QGroupBox grid layout
+- Micro view navigation buttons (N/S/E/W) tightly packed around center button
 
 ### Removed
 - Unused progress bar widget and all related dead code

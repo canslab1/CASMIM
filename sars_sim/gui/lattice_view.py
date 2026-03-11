@@ -222,20 +222,26 @@ class MicroLatticeView(QWidget):
         self._btn_center.clicked.connect(self._on_center_click)
 
         # --- layout ---
-        # Navigation grid (compass-style)
+        # Navigation grid (compass-style, tightly packed)
         nav_grid = QGridLayout()
-        nav_grid.setSpacing(2)
-        nav_grid.addWidget(self._btn_north, 0, 1, Qt.AlignmentFlag.AlignCenter)
-        nav_grid.addWidget(self._btn_west, 1, 0, Qt.AlignmentFlag.AlignCenter)
-        nav_grid.addWidget(self._btn_center, 1, 1, Qt.AlignmentFlag.AlignCenter)
-        nav_grid.addWidget(self._btn_east, 1, 2, Qt.AlignmentFlag.AlignCenter)
-        nav_grid.addWidget(self._btn_south, 2, 1, Qt.AlignmentFlag.AlignCenter)
+        nav_grid.setSpacing(0)
+        nav_grid.setContentsMargins(0, 0, 0, 0)
+        nav_grid.addWidget(self._btn_north, 0, 1)
+        nav_grid.addWidget(self._btn_west, 1, 0)
+        nav_grid.addWidget(self._btn_center, 1, 1)
+        nav_grid.addWidget(self._btn_east, 1, 2)
+        nav_grid.addWidget(self._btn_south, 2, 1)
+
+        nav_row = QHBoxLayout()
+        nav_row.addStretch()
+        nav_row.addLayout(nav_grid)
+        nav_row.addStretch()
 
         top_layout = QVBoxLayout(self)
         top_layout.setContentsMargins(0, 0, 0, 0)
         top_layout.setSpacing(4)
         top_layout.addWidget(self._label, 1)
-        top_layout.addLayout(nav_grid)
+        top_layout.addLayout(nav_row)
         self.setLayout(top_layout)
 
     # ------------------------------------------------------------------
