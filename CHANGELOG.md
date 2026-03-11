@@ -23,7 +23,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - UI tab names: "Macro View" → "Macro", "Micro View" → "Micro", "Parameters" → "World", "Policies" → "Policy"
 - Chart tab names: "Accumulative" → "Accumulation", "Daily" → "Incidence", "Notifiable" → "Notification", "Infective" → "Infection"
 - Button labels: "Initial" → "Setup", "Run" → "Go"
-- Swapped Save/Print button order (Save before Print)
+- Swapped Save/Print button order (Save before Print), Stop/Go button order (Stop before Go)
 - Label "avg." → "Runs", "Attr." → "Attribute", "day" → "day(s), contact"
 - Control bar reorganized into QGroupBox grid layout
 

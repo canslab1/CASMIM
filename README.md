@@ -67,8 +67,8 @@ This launches the GUI application with:
 
 | Control | Function |
 |---------|----------|
-| **Go** | Execute continuous simulation (one day per step) |
 | **Stop** | Pause the simulation |
+| **Go** | Execute continuous simulation (one day per step) |
 | **Setup** | Initialize (or re-initialize) the population and lattice |
 | **Policy checkboxes** | Toggle individual policies on/off during simulation |
 | **Vaccine button** | Administer a batch of vaccines to random unvaccinated individuals |
