@@ -77,10 +77,10 @@ class ParameterPanel(QWidget):
     and small-world controls into one scrollable tab.
 
     Field order (as requested):
-      World Height, World Width, Max Population, Max Agent,
-      Gossip Mode, Old Man Rate, Young Man Rate, Super Rate,
-      distribution memo, Output File 1-4, Input as well as Run,
-      Degree Count, Calculate, small-world result memo.
+      World Height, World Width, Max Population, Max Agents,
+      Gossip Mode, Elderly Rate, Youth Rate, Super Rate,
+      distribution memo, Output File 1-4, Auto-Run after Import,
+      Sample Count, Calculate, small-world result memo.
     """
 
     calculate_requested = Signal(int)
@@ -128,10 +128,10 @@ class ParameterPanel(QWidget):
         form.addRow("Height:", self._height_edit)
         form.addRow("Width:", self._width_edit)
         form.addRow("Max Population:", self._max_pop_edit)
-        form.addRow("Max Agent:", self._max_agent_edit)
+        form.addRow("Max Agents:", self._max_agent_edit)
         form.addRow("Gossip Mode:", mode_row)
-        form.addRow("Old Man Rate:", self._old_rate_edit)
-        form.addRow("Young Man Rate:", self._young_rate_edit)
+        form.addRow("Elderly Rate:", self._old_rate_edit)
+        form.addRow("Youth Rate:", self._young_rate_edit)
         form.addRow("Super Rate:", self._super_rate_edit)
         layout.addLayout(form)
 
@@ -150,7 +150,7 @@ class ParameterPanel(QWidget):
             self._output_checks.append(cb)
             layout.addWidget(cb)
 
-        self._auto_run_check = QCheckBox("Input as well as Run")
+        self._auto_run_check = QCheckBox("Auto-Run after Import")
         self._auto_run_check.setChecked(False)
         layout.addWidget(self._auto_run_check)
 
@@ -160,7 +160,7 @@ class ParameterPanel(QWidget):
         degree_form.setLabelAlignment(Qt.AlignRight | Qt.AlignVCenter)
         degree_form.setFieldGrowthPolicy(QFormLayout.AllNonFixedFieldsGrow)
         self._degree_edit = _make_line_edit(100)
-        degree_form.addRow("Degree of Separation:", self._degree_edit)
+        degree_form.addRow("Sample Count:", self._degree_edit)
         layout.addLayout(degree_form)
 
         self._calc_btn = QPushButton("Calculate")
@@ -249,9 +249,9 @@ class DiseasePanel(QWidget):
         layout.addRow("Immune Probability:", self._immune_prob_edit)
         layout.addRow("Avg. Exposed Period:", self._exposed_edit)
         layout.addRow("Avg. Symptomatic Period:", self._symptomatic_edit)
-        layout.addRow("Avg. Infectious Period:", self._infectious_edit)
+        layout.addRow("Avg. Infective Period:", self._infectious_edit)
         layout.addRow("Avg. Recovered Period:", self._recovered_edit)
-        layout.addRow("Avg. Antibody Period:", self._antibody_edit)
+        layout.addRow("Avg. Immune Period:", self._antibody_edit)
         layout.addRow("Detection Rate:", self._detect_rate_edit)
         layout.addRow("Mortality (Old):", self._mort_old_edit)
         layout.addRow("Mortality (Prime):", self._mort_prime_edit)
@@ -285,7 +285,7 @@ class PoliciesPanel(QWidget):
 
     Sections (in order):
       Face Mask, Take Temperature, Home Quarantine, Hospital,
-      Reduce Contact, Stop Visitant, Vaccine, Medical Policy.
+      Reduce Contact, Restrict Visitors, Vaccine, Medical Policy.
     """
 
     mask_changed = Signal(bool, float, float)
@@ -419,7 +419,7 @@ class PoliciesPanel(QWidget):
         # ---- Stop Visitant ----
         lay.addWidget(_make_separator())
         visit_layout = QGridLayout()
-        self._visit_check = QCheckBox("Stop Visitant")
+        self._visit_check = QCheckBox("Restrict Visitors")
         self._visit_avail_edit = _make_line_edit(0.9)
         visit_layout.addWidget(self._visit_check, 0, 0, 1, 2)
         visit_layout.addWidget(QLabel("Available:"), 1, 0, Qt.AlignRight | Qt.AlignVCenter)

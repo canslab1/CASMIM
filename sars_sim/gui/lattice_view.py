@@ -56,6 +56,9 @@ class MacroLatticeView(QWidget):
         self._display = np.empty((self._H, self._W), dtype=np.uint32)
         self._visible = np.empty((self._H, self._W), dtype=bool)
 
+        # Cached unscaled pixmap (persistent, like C++ Builder TImage Canvas).
+        self._base_pixmap = None
+
         self.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
         self.setMouseTracking(True)
 
@@ -76,7 +79,7 @@ class MacroLatticeView(QWidget):
     # ------------------------------------------------------------------
 
     def update_image(self):
-        """Render *world_color* to a QImage, scaled to fill the label."""
+        """Render *world_color* to a QPixmap and scale to fill the label."""
         data = self.data
         H, W = self._H, self._W
 
@@ -94,17 +97,28 @@ class MacroLatticeView(QWidget):
         np.copyto(self._display, data.world_color, where=self._visible)
         np.copyto(self._display, np.uint32(Colors.GRAY), where=~self._visible)
 
-        # QImage reads from the numpy buffer directly; _display stays alive.
-        qimg = QImage(self._display.data, W, H, W * 4, QImage.Format.Format_ARGB32)
+        # QImage reads from the numpy buffer; .copy() detaches from buffer.
+        qimg = QImage(self._display.data, W, H, W * 4,
+                      QImage.Format.Format_ARGB32).copy()
+        self._base_pixmap = QPixmap.fromImage(qimg)
+        self._rescale()
 
-        # Scale to fit label, keeping square aspect ratio with nearest-neighbor.
+    def _rescale(self):
+        """Scale the cached base pixmap to fit the label's current size."""
+        if self._base_pixmap is None:
+            return
         lw = self._label.width()
         lh = self._label.height()
         if lw > 0 and lh > 0:
-            scaled = qimg.scaled(lw, lh,
-                                 Qt.AspectRatioMode.KeepAspectRatio,
-                                 Qt.TransformationMode.FastTransformation)
-            self._label.setPixmap(QPixmap.fromImage(scaled))
+            scaled = self._base_pixmap.scaled(
+                lw, lh,
+                Qt.AspectRatioMode.KeepAspectRatio,
+                Qt.TransformationMode.FastTransformation)
+            self._label.setPixmap(scaled)
+
+    def resizeEvent(self, event):
+        super().resizeEvent(event)
+        self._rescale()
 
     # ------------------------------------------------------------------
     # Mouse interaction
@@ -178,6 +192,9 @@ class MicroLatticeView(QWidget):
         self._wy_grid = None            # (S, S) int array
         self._wx_grid = None            # (S, S) int array
 
+        # Cached unscaled pixmap (persistent, like C++ Builder TImage Canvas).
+        self._base_pixmap = None
+
         self.setMouseTracking(True)
 
         # --- image label ---
@@ -217,7 +234,7 @@ class MicroLatticeView(QWidget):
         top_layout = QVBoxLayout(self)
         top_layout.setContentsMargins(0, 0, 0, 0)
         top_layout.setSpacing(4)
-        top_layout.addWidget(self._label, 1, Qt.AlignmentFlag.AlignCenter)
+        top_layout.addWidget(self._label, 1)
         top_layout.addLayout(nav_grid)
         self.setLayout(top_layout)
 
@@ -266,17 +283,28 @@ class MicroLatticeView(QWidget):
         np.copyto(self._display, colors_raw, where=self._visible)
         np.copyto(self._display, np.uint32(Colors.GRAY), where=~self._visible)
 
-        # QImage reads from the numpy buffer directly; _display stays alive.
+        # QImage reads from the numpy buffer; .copy() detaches from buffer.
         qimg = QImage(self._display.data, S, S,
-                      S * 4, QImage.Format.Format_ARGB32)
+                      S * 4, QImage.Format.Format_ARGB32).copy()
+        self._base_pixmap = QPixmap.fromImage(qimg)
+        self._rescale()
 
+    def _rescale(self):
+        """Scale the cached base pixmap to fit the label's current size."""
+        if self._base_pixmap is None:
+            return
         lw = self._label.width()
         lh = self._label.height()
         if lw > 0 and lh > 0:
-            scaled = qimg.scaled(lw, lh,
-                                 Qt.AspectRatioMode.KeepAspectRatio,
-                                 Qt.TransformationMode.FastTransformation)
-            self._label.setPixmap(QPixmap.fromImage(scaled))
+            scaled = self._base_pixmap.scaled(
+                lw, lh,
+                Qt.AspectRatioMode.KeepAspectRatio,
+                Qt.TransformationMode.FastTransformation)
+            self._label.setPixmap(scaled)
+
+    def resizeEvent(self, event):
+        super().resizeEvent(event)
+        self._rescale()
 
     # ------------------------------------------------------------------
     # Public API
@@ -422,7 +450,7 @@ class MicroLatticeView(QWidget):
             q_str = "Home Quarantine"
             if q_count > 0:
                 q_str += f", day = {q_count}"
-            q_str += f", Class:{q_level}"
+            q_str += f", Class: {q_level}"
             parts.append(q_str)
         else:
             parts.append("Free")

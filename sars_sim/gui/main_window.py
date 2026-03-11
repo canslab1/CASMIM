@@ -128,7 +128,7 @@ class SARSMainWindow(QMainWindow):
         self.btn_import = QPushButton("Import")
         self.edit_new_case = QLineEdit("3")
         self.edit_new_case.setMaximumWidth(50)
-        self.lbl_person = QLabel("person")
+        self.lbl_person = QLabel("person(s)")
         self.radio_exposed = QRadioButton("Exposed")
         self.radio_exposed.setChecked(True)
         self.radio_infective = QRadioButton("Infective")
@@ -508,8 +508,8 @@ class SARSMainWindow(QMainWindow):
 
     def _on_lattice_click(self, x, y):
         """Switch to micro view centered on clicked cell."""
-        self.micro_view.set_center(x, y)
         self.left_tabs.setCurrentIndex(1)
+        self.micro_view.set_center(x, y)
 
     def _on_lattice_hover(self, x, y, pid):
         """Update status bar on hover."""

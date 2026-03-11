@@ -22,22 +22,22 @@ class SimulationStatusBar(QStatusBar):
         self.panels[0].setText(f"X = {x}")
         self.panels[1].setText(f"Y = {y}")
         self.panels[2].setText(f"No. = {pid}")
-        self.panels[3].setText(f"amount = {agent_count}")
+        self.panels[3].setText(f"Amount = {agent_count}")
 
         state_code = self._get_state_code(state, isolated, quarantined)
-        self.panels[4].setText(f"state = {state_code}")
+        self.panels[4].setText(f"State = {state_code}")
         self.panels[5].setText(f"Identity = {agent_no}")
         self.panels[6].setText("Root" if is_home else "Other")
 
     def update_day_info(self, day):
         """Update panel 7 with current day."""
-        self.panels[7].setText(f"day = {day}")
+        self.panels[7].setText(f"Day = {day}")
 
     def update_summary(self, recovered, died):
         """Update panel 8 with summary statistics."""
         if recovered + died > 0:
             mortality = int((died / (recovered + died)) * 100)
-            self.panels[8].setText(f"(R) {recovered} person(s), (D) {died} person(s), mortality = {mortality}%")
+            self.panels[8].setText(f"(R) {recovered} person(s), (D) {died} person(s), Mortality = {mortality}%")
         else:
             self.panels[8].setText(f"(R) {recovered} person(s), (D) {died} person(s)")
 

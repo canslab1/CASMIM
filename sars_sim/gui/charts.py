@@ -55,7 +55,7 @@ class AccumulativeChart(QWidget):
         self._render_paused = False
 
         self._curve_exposed = self.plot_widget.plot(
-            [], [], pen=pg.mkPen(_CLR_YELLOW, width=2), name='Incubation',
+            [], [], pen=pg.mkPen(_CLR_YELLOW, width=2), name='Exposed',
         )
         self._curve_infective = self.plot_widget.plot(
             [], [], pen=pg.mkPen(_CLR_RED, width=2), name='Infective',
@@ -166,7 +166,7 @@ class DailyChart(QWidget):
 
         # Line series for the remaining states
         self._curve_exposed = self.plot_widget.plot(
-            [], [], pen=pg.mkPen(_CLR_YELLOW, width=2), name='Incubation',
+            [], [], pen=pg.mkPen(_CLR_YELLOW, width=2), name='Exposed',
         )
         self._curve_recovered = self.plot_widget.plot(
             [], [], pen=pg.mkPen(_CLR_BLUE, width=2), name='Recovered',
