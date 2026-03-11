@@ -9,7 +9,7 @@ import time
 import numpy as np
 from PySide6.QtWidgets import (QMainWindow, QWidget, QTabWidget, QHBoxLayout,
     QVBoxLayout, QPushButton, QLineEdit, QLabel, QRadioButton, QCheckBox,
-    QTextEdit, QProgressBar, QApplication, QGroupBox, QSplitter, QMessageBox)
+    QTextEdit, QApplication, QGroupBox, QSplitter, QMessageBox)
 from PySide6.QtCore import QTimer, Qt
 from PySide6.QtWidgets import QButtonGroup
 
@@ -188,19 +188,17 @@ class SARSMainWindow(QMainWindow):
             lay_file.addWidget(w)
         row2.addWidget(grp_file)
 
-        # Remaining: avg count, progress bar, memo
+        # Remaining: avg count, memo
         self.edit_avg_count = QLineEdit("0")
         self.edit_avg_count.setMaximumWidth(40)
         self.edit_avg_count.setReadOnly(True)
         self.lbl_avg_count = QLabel("avg.")
-        self.progress_bar = QProgressBar()
-        self.progress_bar.setMaximumWidth(200)
         self.memo_status = QTextEdit()
         self.memo_status.setMaximumHeight(60)
         self.memo_status.setMaximumWidth(300)
         self.memo_status.setReadOnly(True)
         for w in [self.edit_avg_count, self.lbl_avg_count,
-                   self.progress_bar, self.memo_status]:
+                   self.memo_status]:
             row2.addWidget(w)
 
         row2.addStretch()
@@ -397,8 +395,6 @@ class SARSMainWindow(QMainWindow):
         # Draw
         self.macro_view.update_image()
         self.micro_view.update_image()
-        self.progress_bar.setMaximum(self.params.max_population)
-
         self.memo_status.append("O.K.")
         self._enable_components()
         self._show_main_page()
@@ -704,7 +700,6 @@ class SARSMainWindow(QMainWindow):
 
     def _show_result(self):
         """Refresh display after simulation or import."""
-        self.progress_bar.setValue(0)
         self.world_mgr.reset_world_colors()
         self.macro_view.update_image()
         self.micro_view.update_image()

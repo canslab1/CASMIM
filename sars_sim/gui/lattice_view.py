@@ -427,10 +427,10 @@ class MicroLatticeView(QWidget):
         if data.people_super[pid]:
             parts.append("Super Spreader")
 
-        # --- disease timer (days since state change) ---
-        timer = int(data.people_timer[pid])
-        if timer > 0:
-            parts.append(f"day = {timer}")
+        # --- disease timer (shown for all non-susceptible states) ---
+        state = int(data.people_state[pid])
+        if state != StateEnum.SUSCEPTIBLE:
+            parts.append(f"day = {int(data.people_timer[pid])}")
 
         # --- age group ---
         age = int(data.people_age[pid])
