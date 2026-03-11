@@ -145,7 +145,7 @@ class SARSMainWindow(QMainWindow):
         grp_run = QGroupBox()
         lay_run = QHBoxLayout(grp_run)
         lay_run.setContentsMargins(6, 2, 6, 2)
-        self.btn_run = QPushButton("Run")
+        self.btn_run = QPushButton("Go")
         self.btn_stop = QPushButton("Stop")
         self.edit_period = QLineEdit("1")
         self.edit_period.setMaximumWidth(40)
@@ -182,9 +182,9 @@ class SARSMainWindow(QMainWindow):
         self.lbl_filename = QLabel("File")
         self.edit_filename = QLineEdit("Accumulative Graph")
         self.edit_filename.setMaximumWidth(150)
-        self.btn_print = QPushButton("Print")
         self.btn_save = QPushButton("Save")
-        for w in [self.lbl_filename, self.edit_filename, self.btn_print, self.btn_save]:
+        self.btn_print = QPushButton("Print")
+        for w in [self.lbl_filename, self.edit_filename, self.btn_save, self.btn_print]:
             lay_file.addWidget(w)
         row2.addWidget(grp_file)
 
@@ -192,10 +192,10 @@ class SARSMainWindow(QMainWindow):
         self.edit_avg_count = QLineEdit("0")
         self.edit_avg_count.setMaximumWidth(40)
         self.edit_avg_count.setReadOnly(True)
-        self.lbl_avg_count = QLabel("avg.")
+        self.lbl_avg_count = QLabel("Runs")
         self.memo_status = QTextEdit()
         self.memo_status.setMaximumHeight(60)
-        self.memo_status.setMaximumWidth(300)
+        self.memo_status.setMaximumWidth(500)
         self.memo_status.setReadOnly(True)
         for w in [self.edit_avg_count, self.lbl_avg_count,
                    self.memo_status]:
@@ -206,7 +206,7 @@ class SARSMainWindow(QMainWindow):
 
         # ---- Row 3: People state detail + infected stats ----
         row3 = QHBoxLayout()
-        self.lbl_attr = QLabel("Attr.")
+        self.lbl_attr = QLabel("Attribute")
         self.edit_people_state = QLineEdit()
         self.edit_people_state.setReadOnly(True)
         self.edit_people_state.setMinimumWidth(300)
