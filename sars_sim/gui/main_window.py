@@ -145,15 +145,15 @@ class SARSMainWindow(QMainWindow):
         grp_run = QGroupBox()
         lay_run = QHBoxLayout(grp_run)
         lay_run.setContentsMargins(6, 2, 6, 2)
-        self.btn_run = QPushButton("Go")
         self.btn_stop = QPushButton("Stop")
+        self.btn_run = QPushButton("Go")
         self.edit_period = QLineEdit("1")
         self.edit_period.setMaximumWidth(40)
         self.lbl_day = QLabel("day(s), contact")
         self.edit_gossip = QLineEdit("1")
         self.edit_gossip.setMaximumWidth(40)
         self.lbl_times = QLabel("times")
-        for w in [self.btn_run, self.btn_stop, self.edit_period, self.lbl_day,
+        for w in [self.btn_stop, self.btn_run, self.edit_period, self.lbl_day,
                    self.edit_gossip, self.lbl_times]:
             lay_run.addWidget(w)
         row1.addWidget(grp_run)
