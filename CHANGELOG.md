@@ -4,6 +4,22 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## v2.1.0 (2026-03-11)
+
+### Added
+- Numba JIT-compiled simulation engine (`engine_numba.py`) with 13 `@nb.njit(cache=True)` functions, achieving ~8x speedup over pure Python
+- `CASMIM_NO_NUMBA=1` environment variable to disable Numba and fall back to pure Python engine
+- Pre-allocated BFS arrays for contact tracing in Numba kernel (replaces Python `deque`/`set`)
+- Dirty-flag tracking array for incremental lattice repaint in Numba path
+
+### Fixed
+- Window progressive enlargement during simulation run (changed QLabel SizePolicy from Expanding to Ignored)
+- Exposed/Infective radio buttons allowing simultaneous selection (added QButtonGroup)
+
+### Changed
+- UI tab names: "Macro View" → "Macro", "Micro View" → "Micro", "Parameters" → "World", "Policies" → "Policy"
+- Button label: "Initial" → "Setup"
+
 ## v2.0.0 (2025-03-10)
 
 Complete rewrite from Borland C++ Builder to Python 3.

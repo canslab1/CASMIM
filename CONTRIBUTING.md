@@ -60,6 +60,7 @@ python main.py  # Verify the GUI launches correctly
 |--------|---------------|
 | `sars_sim/models.py` | Data structures (StateEnum, SimulationParams, SimulationData) |
 | `sars_sim/engine.py` | Core SEIR+D simulation engine, transmission and state transition logic |
+| `sars_sim/engine_numba.py` | Numba JIT-compiled kernels (~8x speedup; 13 `@njit` functions) |
 | `sars_sim/world.py` | Lattice management, population initialization, agent distribution |
 | `sars_sim/policies.py` | 8 public health policy implementations |
 | `sars_sim/statistics.py` | Statistics tracking, Excel output |

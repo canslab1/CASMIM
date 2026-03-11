@@ -56,8 +56,8 @@ keywords:
   - agent-based modeling
   - computational epidemiology
 license: MIT
-version: 2.0.0
-date-released: '2025-03-10'
+version: 2.1.0
+date-released: '2026-03-11'
 preferred-citation:
   type: article
   authors:

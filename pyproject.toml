@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "casmim-sars-simulation"
-version = "2.0.0"
+version = "2.1.0"
 description = "CASMIM SARS Epidemic Dynamics Simulation with Public Health Policy Assessments"
 readme = "README.md"
 license = {text = "MIT"}

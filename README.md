@@ -29,6 +29,7 @@ The model was originally developed in Borland C++ Builder (2003-2005) and has be
 - **Dynamic policy activation** — Policies can be enabled or disabled mid-simulation to study intervention timing
 - **Super-spreader modeling** — Configurable probability for super-spreader designation
 - **Excel output** — Simulation statistics exported via openpyxl with 4 output sheets (cumulative counts, daily deltas, action log, running averages)
+- **Numba JIT acceleration** — Core simulation loop compiled to native code via Numba `@njit`, achieving ~8x speedup over pure Python; fallback to Python path via `CASMIM_NO_NUMBA=1`
 - **NumPy-accelerated** — Structure-of-Arrays (SoA) data layout with vectorized operations for population-level computations
 
 ## Installation
@@ -45,6 +46,7 @@ pip install -r requirements.txt
 |---------|---------|
 | PySide6 | &ge; 6.5 |
 | NumPy | &ge; 1.24 |
+| Numba | &ge; 0.60.0 |
 | pyqtgraph | &ge; 0.13 |
 | openpyxl | &ge; 3.1 |
 
@@ -56,10 +58,10 @@ python main.py
 
 This launches the GUI application with:
 
-- **Left panel**: Disease parameters, population parameters, policy controls with checkboxes and effect/coverage sliders
-- **Center panel**: 500 &times; 500 macro lattice view with real-time color-coded agent states; click to navigate the 100 &times; 100 micro lattice view
+- **Left panel**: Disease parameters (Setup tab), population parameters (World tab), policy controls (Policy tab) with checkboxes and effect/coverage sliders
+- **Center panel**: Macro tab (500 &times; 500 lattice) with real-time color-coded agent states; click to navigate the Micro tab (100 &times; 100 magnified view)
 - **Right panel**: 6 pyqtgraph chart widgets displaying accumulative, daily, notifiable, infective, and quarantine statistics
-- **Bottom panel**: 9-panel status bar showing current day, population counts by state, and infection sources
+- **Bottom panel**: 9-panel status bar showing coordinates, agent state, identity, current day, and mortality summary
 
 ### Controls
 
@@ -67,9 +69,15 @@ This launches the GUI application with:
 |---------|----------|
 | **Run** | Execute continuous simulation (one day per step) |
 | **Stop** | Pause the simulation |
-| **Reset** | Re-initialize the population and lattice |
+| **Setup** | Initialize (or re-initialize) the population and lattice |
 | **Policy checkboxes** | Toggle individual policies on/off during simulation |
 | **Vaccine button** | Administer a batch of vaccines to random unvaccinated individuals |
+
+### Environment Variables
+
+| Variable | Description |
+|----------|-------------|
+| `CASMIM_NO_NUMBA=1` | Disable Numba JIT and use the pure Python engine (useful for debugging or when Numba is unavailable) |
 
 ## Disease Parameters
 
@@ -123,8 +131,9 @@ CASMIM simulates epidemic dynamics through a daily step cycle:
 
 ## Implementation Notes
 
+- **Numba JIT compilation**: The core simulation loop (`change_society`) and all subroutines (13 functions total) are compiled to native code via `@nb.njit(cache=True)`, yielding ~8x speedup. BFS contact tracing uses pre-allocated arrays with head/tail pointers instead of Python `deque`.
 - **AoS &rarr; SoA conversion**: The original C++ Array-of-Structures (`society.people[i].state`) is converted to Structure-of-Arrays (`people_state[i]`) using NumPy for cache-friendly vectorized operations.
-- **Contact tracing**: Changed from recursive DFS (C++) to iterative BFS (Python) to avoid stack overflow on large populations.
+- **Contact tracing**: Changed from recursive DFS (C++) to iterative BFS (Python/Numba) to avoid stack overflow on large populations.
 - **Policy vectorization**: All policy applications (except vaccination) use `np.random.random(N) < available` for O(1) per-person Bernoulli trials instead of scalar loops.
 - **Incremental rendering**: A dirty-set mechanism (`dirty_pids`) tracks only agents whose state changed each day, avoiding full-lattice repaints.
 - **Chart rendering**: Migrated from VCL TChart (C++) to pyqtgraph (Python) for real-time chart updates.
@@ -145,6 +154,7 @@ CASMIM/
     ├── models.py                # Data structures (StateEnum, SimulationParams, SimulationData)
     ├── world.py                 # Lattice management, population initialization, agent distribution
     ├── engine.py                # Core SEIR+D simulation engine, transmission and state transition logic
+    ├── engine_numba.py          # Numba JIT-compiled kernels (13 @njit functions, ~8x speedup)
     ├── policies.py              # 8 public health policy implementations (vectorized)
     ├── statistics.py            # Statistics tracking, Excel output (4 sheets)
     └── gui/

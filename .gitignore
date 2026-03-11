@@ -34,6 +34,11 @@ Thumbs.db
 *衝突的複本*
 *(conflicted copy*
 
+# ===== Numba Cache =====
+__pycache__/
+*.nbi
+*.nbc
+
 # ===== Claude Code =====
 .claude/
 
