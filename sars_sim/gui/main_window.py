@@ -11,6 +11,7 @@ from PySide6.QtWidgets import (QMainWindow, QWidget, QTabWidget, QHBoxLayout,
     QVBoxLayout, QPushButton, QLineEdit, QLabel, QRadioButton, QCheckBox,
     QTextEdit, QProgressBar, QApplication, QGroupBox, QSplitter, QMessageBox)
 from PySide6.QtCore import QTimer, Qt
+from PySide6.QtWidgets import QButtonGroup
 
 from ..models import SimulationParams, SimulationData, MeasureData, StateEnum
 from ..world import WorldManager
@@ -127,6 +128,9 @@ class SARSMainWindow(QMainWindow):
         self.radio_exposed = QRadioButton("Exposed")
         self.radio_exposed.setChecked(True)
         self.radio_infective = QRadioButton("Infective")
+        self._case_type_group = QButtonGroup(self)
+        self._case_type_group.addButton(self.radio_exposed)
+        self._case_type_group.addButton(self.radio_infective)
         self.chk_super = QCheckBox("Super")
 
         self.btn_run = QPushButton("Run")

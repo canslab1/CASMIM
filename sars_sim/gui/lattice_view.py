@@ -62,7 +62,7 @@ class MacroLatticeView(QWidget):
         # QLabel used as the rendering surface.
         self._label = QLabel(self)
         self._label.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        self._label.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
+        self._label.setSizePolicy(QSizePolicy.Policy.Ignored, QSizePolicy.Policy.Ignored)
         self._label.setAttribute(Qt.WidgetAttribute.WA_TransparentForMouseEvents)
 
         layout = QVBoxLayout(self)
@@ -183,7 +183,7 @@ class MicroLatticeView(QWidget):
         # --- image label ---
         self._label = QLabel()
         self._label.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        self._label.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
+        self._label.setSizePolicy(QSizePolicy.Policy.Ignored, QSizePolicy.Policy.Ignored)
         self._label.setMouseTracking(True)
         self._label.setAttribute(Qt.WidgetAttribute.WA_TransparentForMouseEvents)
 
