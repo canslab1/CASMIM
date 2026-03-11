@@ -83,10 +83,10 @@ class SARSMainWindow(QMainWindow):
 
         self.left_tabs.addTab(self.macro_view, "Macro")
         self.left_tabs.addTab(self.micro_view, "Micro")
-        self.left_tabs.addTab(self.chart_accumulative, "Accumulative")
-        self.left_tabs.addTab(self.chart_daily, "Daily")
-        self.left_tabs.addTab(self.chart_notifiable, "Notifiable")
-        self.left_tabs.addTab(self.chart_infective, "Infective")
+        self.left_tabs.addTab(self.chart_accumulative, "Accumulation")
+        self.left_tabs.addTab(self.chart_daily, "Incidence")
+        self.left_tabs.addTab(self.chart_notifiable, "Notification")
+        self.left_tabs.addTab(self.chart_infective, "Infection")
         self.left_tabs.addTab(self.chart_acc_quarantine, "Acc. Quarantine")
         self.left_tabs.addTab(self.chart_daily_quarantine, "Daily Quarantine")
 
@@ -149,7 +149,7 @@ class SARSMainWindow(QMainWindow):
         self.btn_stop = QPushButton("Stop")
         self.edit_period = QLineEdit("1")
         self.edit_period.setMaximumWidth(40)
-        self.lbl_day = QLabel("day")
+        self.lbl_day = QLabel("day(s), contact")
         self.edit_gossip = QLineEdit("1")
         self.edit_gossip.setMaximumWidth(40)
         self.lbl_times = QLabel("times")

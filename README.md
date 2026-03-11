@@ -24,7 +24,7 @@ The model was originally developed in Borland C++ Builder (2003-2005) and has be
 
 - **Interactive lattice visualization** — 500 &times; 500 macro lattice and 100 &times; 100 micro lattice with click-to-navigate
 - **Real-time SEIR+D display** — Color-coded agents (sky-blue = susceptible/exposed/immune, red = infective, silver = recovered, black = died)
-- **6 chart types** — Accumulative, daily, notifiable, infective, accumulative quarantine, daily quarantine
+- **6 chart types** — Accumulation, incidence, notification, infection, accumulative quarantine, daily quarantine
 - **8 configurable policies** — Each policy can be toggled on/off during simulation with adjustable effect and coverage rates
 - **Dynamic policy activation** — Policies can be enabled or disabled mid-simulation to study intervention timing
 - **Super-spreader modeling** — Configurable probability for super-spreader designation
@@ -58,16 +58,16 @@ python main.py
 
 This launches the GUI application with:
 
-- **Left panel**: Disease parameters (Setup tab), population parameters (World tab), policy controls (Policy tab) with checkboxes and effect/coverage sliders
+- **Left panel**: Disease parameters (Disease tab), population parameters (World tab), policy controls (Policy tab) with checkboxes and effect/coverage sliders
 - **Center panel**: Macro tab (500 &times; 500 lattice) with real-time color-coded agent states; click to navigate the Micro tab (100 &times; 100 magnified view)
-- **Right panel**: 6 pyqtgraph chart widgets displaying accumulative, daily, notifiable, infective, and quarantine statistics
+- **Right panel**: 6 pyqtgraph chart widgets displaying accumulation, incidence, notification, infection, and quarantine statistics
 - **Bottom panel**: 9-panel status bar showing coordinates, agent state, identity, current day, and mortality summary
 
 ### Controls
 
 | Control | Function |
 |---------|----------|
-| **Run** | Execute continuous simulation (one day per step) |
+| **Go** | Execute continuous simulation (one day per step) |
 | **Stop** | Pause the simulation |
 | **Setup** | Initialize (or re-initialize) the population and lattice |
 | **Policy checkboxes** | Toggle individual policies on/off during simulation |

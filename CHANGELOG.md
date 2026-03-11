@@ -15,10 +15,20 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ### Fixed
 - Window progressive enlargement during simulation run (changed QLabel SizePolicy from Expanding to Ignored)
 - Exposed/Infective radio buttons allowing simultaneous selection (added QButtonGroup)
+- Micro lattice view rendering as tiny blue square when switching from Macro tab (removed AlignCenter constraint, added cached base pixmap with resizeEvent rescaling)
+- Micro view Attribute field always showing "Susceptible" regardless of disease state (use `state != SUSCEPTIBLE` condition instead of `timer > 0`, matching C++ original)
+- English text consistency across all GUI panels (label capitalization, abbreviations, spacing)
 
 ### Changed
 - UI tab names: "Macro View" → "Macro", "Micro View" → "Micro", "Parameters" → "World", "Policies" → "Policy"
-- Button label: "Initial" → "Setup"
+- Chart tab names: "Accumulative" → "Accumulation", "Daily" → "Incidence", "Notifiable" → "Notification", "Infective" → "Infection"
+- Button labels: "Initial" → "Setup", "Run" → "Go"
+- Swapped Save/Print button order (Save before Print)
+- Label "avg." → "Runs", "Attr." → "Attribute", "day" → "day(s), contact"
+- Control bar reorganized into QGroupBox grid layout
+
+### Removed
+- Unused progress bar widget and all related dead code
 
 ## v2.0.0 (2025-03-10)
 
