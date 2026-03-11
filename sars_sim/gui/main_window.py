@@ -118,9 +118,13 @@ class SARSMainWindow(QMainWindow):
 
     def _build_control_bar(self, parent_layout):
         """Build the bottom control buttons and fields."""
-        # ---- Row 1: Import, Run, Stop controls ----
+        # ---- Row 1: Import group | Run group ----
         row1 = QHBoxLayout()
 
+        # Group: Import / person count / Exposed / Infective / Super
+        grp_import = QGroupBox()
+        lay_import = QHBoxLayout(grp_import)
+        lay_import.setContentsMargins(6, 2, 6, 2)
         self.btn_import = QPushButton("Import")
         self.edit_new_case = QLineEdit("3")
         self.edit_new_case.setMaximumWidth(50)
@@ -132,7 +136,15 @@ class SARSMainWindow(QMainWindow):
         self._case_type_group.addButton(self.radio_exposed)
         self._case_type_group.addButton(self.radio_infective)
         self.chk_super = QCheckBox("Super")
+        for w in [self.btn_import, self.edit_new_case, self.lbl_person,
+                   self.radio_exposed, self.radio_infective, self.chk_super]:
+            lay_import.addWidget(w)
+        row1.addWidget(grp_import)
 
+        # Group: Run / Stop / day count / gossip count
+        grp_run = QGroupBox()
+        lay_run = QHBoxLayout(grp_run)
+        lay_run.setContentsMargins(6, 2, 6, 2)
         self.btn_run = QPushButton("Run")
         self.btn_stop = QPushButton("Stop")
         self.edit_period = QLineEdit("1")
@@ -141,44 +153,56 @@ class SARSMainWindow(QMainWindow):
         self.edit_gossip = QLineEdit("1")
         self.edit_gossip.setMaximumWidth(40)
         self.lbl_times = QLabel("times")
-
-        for w in [self.btn_import, self.edit_new_case, self.lbl_person,
-                   self.radio_exposed, self.radio_infective, self.chk_super,
-                   self.btn_run, self.btn_stop, self.edit_period, self.lbl_day,
+        for w in [self.btn_run, self.btn_stop, self.edit_period, self.lbl_day,
                    self.edit_gossip, self.lbl_times]:
-            row1.addWidget(w)
+            lay_run.addWidget(w)
+        row1.addWidget(grp_run)
+
         row1.addStretch()
         parent_layout.addLayout(row1)
 
-        # ---- Row 2: Initial, Finish, Exit, progress ----
+        # ---- Row 2: Setup group | File group | avg + progress + memo ----
         row2 = QHBoxLayout()
+
+        # Group: Setup / Finish / Exit
+        grp_session = QGroupBox()
+        lay_session = QHBoxLayout(grp_session)
+        lay_session.setContentsMargins(6, 2, 6, 2)
         self.btn_initial = QPushButton("Setup")
         self.btn_finish = QPushButton("Finish")
         self.btn_exit = QPushButton("Exit")
-        self.btn_print = QPushButton("Print")
-        self.btn_save = QPushButton("Save")
+        for w in [self.btn_initial, self.btn_finish, self.btn_exit]:
+            lay_session.addWidget(w)
+        row2.addWidget(grp_session)
+
+        # Group: File label, filename, Print, Save
+        grp_file = QGroupBox()
+        lay_file = QHBoxLayout(grp_file)
+        lay_file.setContentsMargins(6, 2, 6, 2)
+        self.lbl_filename = QLabel("File")
         self.edit_filename = QLineEdit("Accumulative Graph")
         self.edit_filename.setMaximumWidth(150)
-        self.lbl_filename = QLabel("File")
+        self.btn_print = QPushButton("Print")
+        self.btn_save = QPushButton("Save")
+        for w in [self.lbl_filename, self.edit_filename, self.btn_print, self.btn_save]:
+            lay_file.addWidget(w)
+        row2.addWidget(grp_file)
 
+        # Remaining: avg count, progress bar, memo
         self.edit_avg_count = QLineEdit("0")
         self.edit_avg_count.setMaximumWidth(40)
         self.edit_avg_count.setReadOnly(True)
         self.lbl_avg_count = QLabel("avg.")
-
         self.progress_bar = QProgressBar()
         self.progress_bar.setMaximumWidth(200)
-
         self.memo_status = QTextEdit()
         self.memo_status.setMaximumHeight(60)
         self.memo_status.setMaximumWidth(300)
         self.memo_status.setReadOnly(True)
-
-        for w in [self.btn_initial, self.btn_finish, self.btn_exit,
-                   self.btn_print, self.btn_save, self.edit_filename, self.lbl_filename,
-                   self.edit_avg_count, self.lbl_avg_count,
+        for w in [self.edit_avg_count, self.lbl_avg_count,
                    self.progress_bar, self.memo_status]:
             row2.addWidget(w)
+
         row2.addStretch()
         parent_layout.addLayout(row2)
 
