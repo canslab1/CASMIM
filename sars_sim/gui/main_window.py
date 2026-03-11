@@ -81,8 +81,8 @@ class SARSMainWindow(QMainWindow):
         self.chart_acc_quarantine = AccumulativeQuarantineChart()
         self.chart_daily_quarantine = DailyQuarantineChart()
 
-        self.left_tabs.addTab(self.macro_view, "Macro View")
-        self.left_tabs.addTab(self.micro_view, "Micro View")
+        self.left_tabs.addTab(self.macro_view, "Macro")
+        self.left_tabs.addTab(self.micro_view, "Micro")
         self.left_tabs.addTab(self.chart_accumulative, "Accumulative")
         self.left_tabs.addTab(self.chart_daily, "Daily")
         self.left_tabs.addTab(self.chart_notifiable, "Notifiable")
@@ -96,9 +96,9 @@ class SARSMainWindow(QMainWindow):
         self.panel_disease = DiseasePanel()
         self.panel_policies = PoliciesPanel()
 
-        self.right_tabs.addTab(self.panel_parameter, "Parameters")
+        self.right_tabs.addTab(self.panel_parameter, "World")
         self.right_tabs.addTab(self.panel_disease, "Disease")
-        self.right_tabs.addTab(self.panel_policies, "Policies")
+        self.right_tabs.addTab(self.panel_policies, "Policy")
         self.right_tabs.setCurrentIndex(1)  # Disease tab default
 
         splitter.addWidget(self.left_tabs)
@@ -152,7 +152,7 @@ class SARSMainWindow(QMainWindow):
 
         # ---- Row 2: Initial, Finish, Exit, progress ----
         row2 = QHBoxLayout()
-        self.btn_initial = QPushButton("Initial")
+        self.btn_initial = QPushButton("Setup")
         self.btn_finish = QPushButton("Finish")
         self.btn_exit = QPushButton("Exit")
         self.btn_print = QPushButton("Print")
@@ -573,7 +573,7 @@ class SARSMainWindow(QMainWindow):
         # Guard: agents must be placed first
         if not np.any(d.people_count > 0):
             QMessageBox.warning(self, "Small World",
-                                "Please click Initial first to create the society.")
+                                "Please click Setup first to create the society.")
             return
 
         result_text = ""
