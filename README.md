@@ -2,6 +2,7 @@
 
 ![Python 3.10+](https://img.shields.io/badge/Python-3.10%2B-blue)
 ![License: MIT](https://img.shields.io/badge/License-MIT-green)
+[![CANS Lab](https://img.shields.io/badge/CANS_Lab-Homepage-orange)](https://canslab1.github.io/)
 
 A Python 3 implementation of the **CASMIM** model for simulating SARS transmission dynamics and evaluating public health policy interventions on a small-world epidemiological network.
 
