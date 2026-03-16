@@ -1,0 +1,31 @@
+# CASMIM — Cellular Automata and Social Mirror Identity SARS Simulation
+
+> CASMIM is one of the first social-network-based infectious disease simulation systems in Taiwan, combining cellular automata with social mirror identity models to simulate SARS transmission dynamics and evaluate public health policy interventions.
+
+## Author
+
+- Name: Chung-Yuan Huang (黃崇源)
+- Title: Full Professor, Department of CSIE, Chang Gung University
+- Email: gscott@mail.cgu.edu.tw
+- ORCID: https://orcid.org/0000-0002-8680-6755
+- Google Scholar: https://scholar.google.com/citations?user=0klfzfAAAAAJ&hl=en
+- Homepage: https://canslab1.github.io/
+
+## Software
+
+- Name: CASMIM
+- Language: Python
+- License: MIT
+- GitHub: https://github.com/canslab1/CASMIM
+- README: https://canslab1.github.io/CASMIM/
+
+## Publication
+
+Huang, C.-Y., Sun, C.-T., Hsieh, J.-L., & Lin, H. (2004). Simulating SARS: Small-world epidemiological modeling and public health policy assessments. JASSS, 7(4).
+
+
+## Lab
+
+- CANS Lab (Complex Adaptive Networks and Systems Laboratory)
+- Chang Gung University, Department of CSIE
+- Website: https://canslab1.github.io/
