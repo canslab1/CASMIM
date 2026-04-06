@@ -35,7 +35,6 @@ Thumbs.db
 *(conflicted copy*
 
 # ===== Numba Cache =====
-__pycache__/
 *.nbi
 *.nbc
 

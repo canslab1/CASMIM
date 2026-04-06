@@ -150,6 +150,11 @@ CASMIM/
 ├── CHANGELOG.md                 # Version history
 ├── CONTRIBUTING.md              # Contribution guidelines
 ├── LICENSE                      # MIT License
+├── index.html                   # GitHub Pages landing page
+├── 404.html                     # Custom 404 error page
+├── sitemap.xml                  # XML sitemap for search engines
+├── robots.txt                   # Crawler directives
+├── llms.txt                     # AI-readable project summary
 └── sars_sim/
     ├── __init__.py
     ├── models.py                # Data structures (StateEnum, SimulationParams, SimulationData)
