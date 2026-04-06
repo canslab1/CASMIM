@@ -21,8 +21,8 @@
 
 ## Publication
 
-Huang, C.-Y., Sun, C.-T., Hsieh, J.-L., & Lin, H. (2004). Simulating SARS: Small-world epidemiological modeling and public health policy assessments. JASSS, 7(4).
-
+Huang, C.-Y., Sun, C.-T., Hsieh, J.-L., Chen, Y.-M. A., & Lin, H. (2005). A Novel Small-World Model: Using Social Mirror Identities for Epidemic Simulations. SIMULATION, 81(10), 671-699.
+DOI: https://doi.org/10.1177/0037549705061519
 
 ## Lab
 
