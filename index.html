@@ -132,7 +132,356 @@
     <main class="content-wrapper">
         <article class="markdown-body" id="content" aria-live="polite">
             <h1>CASMIM — Cellular Automata with Social Mirror Identities Model</h1>
-            <div class="loading">Loading README...</div>
+            <!-- PRERENDER-START -->
+<p><img alt="Python 3.10+" src="https://img.shields.io/badge/Python-3.10%2B-blue">
+<img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-green">
+<a href="https://canslab1.github.io/"><img alt="CANS Lab" src="https://img.shields.io/badge/CANS_Lab-Homepage-orange"></a></p>
+<p>A Python 3 implementation of the <strong>CASMIM</strong> model for simulating SARS transmission dynamics and evaluating public health policy interventions on a small-world epidemiological network.</p>
+<h2 id="overview">Overview</h2>
+<p>In the early 2000s, SARS outbreaks in cities such as Singapore, Taipei, and Toronto demonstrated how daily-contact social networks and long-distance movement could rapidly amplify disease spread. CASMIM addresses this by combining cellular automata with a "social mirror identity" mechanism: each person owns multiple <em>agents</em> (mirrors) scattered across a 500 &times; 500 torus lattice, representing the different social spheres (home, workplace, hospital, etc.) that a single individual participates in daily.</p>
+<p>The model integrates:</p>
+<ul>
+<li><strong>Cellular Automata</strong> on a 2D torus lattice (500 &times; 500) for spatial agent interactions</li>
+<li><strong>Social Mirror Identities</strong> to represent daily-contact social networks and long-distance movement</li>
+<li><strong>SEIR+D compartmental model</strong> (Susceptible &rarr; Exposed &rarr; Infective &rarr; Recovered &rarr; Immune &rarr; Susceptible, with Death branch)</li>
+<li><strong>8 public health policies</strong> (mask wearing, temperature screening, hospitalization, home quarantine, contact reduction, visit restriction, vaccination, medical policy)</li>
+<li><strong>Contact tracing</strong> via BFS-based algorithms with level-1 and level-2 quarantine</li>
+<li><strong>Super-spreader modeling</strong> and <strong>age-stratified mortality</strong></li>
+</ul>
+<p>The model was originally developed in Borland C++ Builder (2003-2005) and has been ported to Python 3 with a PySide6 (Qt) GUI.</p>
+<h2 id="features">Features</h2>
+<ul>
+<li><strong>Interactive lattice visualization</strong> — 500 &times; 500 macro lattice and 100 &times; 100 micro lattice with click-to-navigate</li>
+<li><strong>Real-time SEIR+D display</strong> — Color-coded agents (sky-blue = susceptible/exposed/immune, red = infective, silver = recovered, black = died)</li>
+<li><strong>6 chart types</strong> — Accumulation, incidence, notification, infection, accumulative quarantine, daily quarantine</li>
+<li><strong>8 configurable policies</strong> — Each policy can be toggled on/off during simulation with adjustable effect and coverage rates</li>
+<li><strong>Dynamic policy activation</strong> — Policies can be enabled or disabled mid-simulation to study intervention timing</li>
+<li><strong>Super-spreader modeling</strong> — Configurable probability for super-spreader designation</li>
+<li><strong>Excel output</strong> — Simulation statistics exported via openpyxl with 4 output sheets (cumulative counts, daily deltas, action log, running averages)</li>
+<li><strong>Numba JIT acceleration</strong> — Core simulation loop compiled to native code via Numba <code>@njit</code>, achieving ~8x speedup over pure Python; fallback to Python path via <code>CASMIM_NO_NUMBA=1</code></li>
+<li><strong>NumPy-accelerated</strong> — Structure-of-Arrays (SoA) data layout with vectorized operations for population-level computations</li>
+</ul>
+<h2 id="installation">Installation</h2>
+<pre><code class="language-bash">git clone https://github.com/canslab1/CASMIM.git
+cd CASMIM
+pip install -r requirements.txt
+</code></pre>
+<h3 id="dependencies">Dependencies</h3>
+<table>
+<thead>
+<tr>
+<th>Package</th>
+<th>Version</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PySide6</td>
+<td>&ge; 6.5</td>
+</tr>
+<tr>
+<td>NumPy</td>
+<td>&ge; 1.24</td>
+</tr>
+<tr>
+<td>Numba</td>
+<td>&ge; 0.60.0</td>
+</tr>
+<tr>
+<td>pyqtgraph</td>
+<td>&ge; 0.13</td>
+</tr>
+<tr>
+<td>openpyxl</td>
+<td>&ge; 3.1</td>
+</tr>
+</tbody>
+</table>
+<h2 id="usage">Usage</h2>
+<pre><code class="language-bash">python main.py
+</code></pre>
+<p>This launches the GUI application with:</p>
+<ul>
+<li><strong>Left panel</strong>: Disease parameters (Disease tab), population parameters (World tab), policy controls (Policy tab) with checkboxes and effect/coverage sliders</li>
+<li><strong>Center panel</strong>: Macro tab (500 &times; 500 lattice) with real-time color-coded agent states; click to navigate the Micro tab (100 &times; 100 magnified view)</li>
+<li><strong>Right panel</strong>: 6 pyqtgraph chart widgets displaying accumulation, incidence, notification, infection, and quarantine statistics</li>
+<li><strong>Bottom panel</strong>: 9-panel status bar showing coordinates, agent state, identity, current day, and mortality summary</li>
+</ul>
+<h3 id="controls">Controls</h3>
+<table>
+<thead>
+<tr>
+<th>Control</th>
+<th>Function</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Stop</strong></td>
+<td>Pause the simulation</td>
+</tr>
+<tr>
+<td><strong>Go</strong></td>
+<td>Execute continuous simulation (one day per step)</td>
+</tr>
+<tr>
+<td><strong>Setup</strong></td>
+<td>Initialize (or re-initialize) the population and lattice</td>
+</tr>
+<tr>
+<td><strong>Policy checkboxes</strong></td>
+<td>Toggle individual policies on/off during simulation</td>
+</tr>
+<tr>
+<td><strong>Vaccine button</strong></td>
+<td>Administer a batch of vaccines to random unvaccinated individuals</td>
+</tr>
+</tbody>
+</table>
+<h3 id="environment-variables">Environment Variables</h3>
+<table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>CASMIM_NO_NUMBA=1</code></td>
+<td>Disable Numba JIT and use the pure Python engine (useful for debugging or when Numba is unavailable)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="disease-parameters">Disease Parameters</h2>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>exposed_period</code></td>
+<td>5</td>
+<td>Average incubation period (days)</td>
+</tr>
+<tr>
+<td><code>symptomatic_period</code></td>
+<td>23</td>
+<td>Average symptomatic duration (days)</td>
+</tr>
+<tr>
+<td><code>infective_period</code></td>
+<td>3</td>
+<td>Average infectious period (days)</td>
+</tr>
+<tr>
+<td><code>recovered_period</code></td>
+<td>7</td>
+<td>Average recovery period (days)</td>
+</tr>
+<tr>
+<td><code>immune_period</code></td>
+<td>60</td>
+<td>Average immunity duration (days)</td>
+</tr>
+<tr>
+<td><code>quarantine_period</code></td>
+<td>10</td>
+<td>Quarantine/isolation duration (days)</td>
+</tr>
+<tr>
+<td><code>transmission_prob</code></td>
+<td>0.05</td>
+<td>Per-contact infection probability</td>
+</tr>
+<tr>
+<td><code>immune_prob</code></td>
+<td>0.02</td>
+<td>Natural immunity probability</td>
+</tr>
+<tr>
+<td><code>detect_rate</code></td>
+<td>0.9</td>
+<td>Symptom detection rate</td>
+</tr>
+<tr>
+<td><code>super_rate</code></td>
+<td>0.0001</td>
+<td>Super-spreader designation probability</td>
+</tr>
+<tr>
+<td><code>mortality_old</code></td>
+<td>0.52</td>
+<td>Mortality rate for elderly</td>
+</tr>
+<tr>
+<td><code>mortality_prime</code></td>
+<td>0.17</td>
+<td>Mortality rate for prime-age adults</td>
+</tr>
+<tr>
+<td><code>mortality_young</code></td>
+<td>0.05</td>
+<td>Mortality rate for young individuals</td>
+</tr>
+</tbody>
+</table>
+<h2 id="policy-parameters">Policy Parameters</h2>
+<table>
+<thead>
+<tr>
+<th>Policy</th>
+<th>Effect</th>
+<th>Coverage</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Mask wearing</td>
+<td>0.9</td>
+<td>0.9</td>
+<td>Reduces transmission probability</td>
+</tr>
+<tr>
+<td>Temperature screening</td>
+<td>0.9</td>
+<td>0.9</td>
+<td>Increases detection rate for early isolation</td>
+</tr>
+<tr>
+<td>Hospital isolation</td>
+<td>0.5</td>
+<td>0.95</td>
+<td>Isolates infective individuals in hospital</td>
+</tr>
+<tr>
+<td>Home quarantine</td>
+<td>—</td>
+<td>0.81</td>
+<td>Quarantines contacts at home</td>
+</tr>
+<tr>
+<td>Visit restriction</td>
+<td>—</td>
+<td>0.9</td>
+<td>Restricts hospital visitors to reduce nosocomial infection</td>
+</tr>
+<tr>
+<td>Contact reduction</td>
+<td>—</td>
+<td>0.9</td>
+<td>Reduces social contacts (e.g., school/workplace closure)</td>
+</tr>
+<tr>
+<td>Vaccination</td>
+<td>—</td>
+<td>count</td>
+<td>Administers vaccines to random unvaccinated individuals</td>
+</tr>
+<tr>
+<td>Medical policy</td>
+<td>0.9</td>
+<td>0.9</td>
+<td>Applies antiviral treatment to infective individuals</td>
+</tr>
+</tbody>
+</table>
+<h2 id="algorithm-overview">Algorithm Overview</h2>
+<p>CASMIM simulates epidemic dynamics through a daily step cycle:</p>
+<ol>
+<li>
+<p><strong>Population initialization</strong> — 100,000 individuals are created with age-stratified demographics (young/prime/old). Each person is assigned multiple "social mirror" agents distributed across the 500 &times; 500 torus lattice using a Gaussian quota distribution, representing their presence in different social spheres.</p>
+</li>
+<li>
+<p><strong>Daily traversal</strong> — Each day, all individuals are traversed in a randomly chosen direction (forward or reverse) to eliminate ordering bias. For each person, the engine executes:</p>
+</li>
+<li>
+<p><strong>State transition</strong> — The SEIR+D state machine advances:</p>
+</li>
+<li><strong>Susceptible</strong>: Agents interact with Moore-neighborhood neighbors; transmission occurs with probability <code>transmission_prob</code> (modified by mask and medical policies).</li>
+<li><strong>Exposed</strong>: Counter increments; transitions to Infective after <code>exposed_period</code> days.</li>
+<li><strong>Infective</strong>: May be detected (with probability <code>detect_rate</code>) and isolated/quarantined. Transmission to neighbors continues. After <code>infective_period</code> days, transitions to Recovered or Died (age-stratified mortality).</li>
+<li><strong>Recovered</strong>: After <code>recovered_period</code> days, transitions to Immune.</li>
+<li>
+<p><strong>Immune</strong>: After <code>immune_period</code> days, returns to Susceptible (unless permanently immunized by vaccine).</p>
+</li>
+<li>
+<p><strong>Contact tracing</strong> — When an infective individual is detected, BFS-based contact tracing identifies level-1 (direct contacts) and optionally level-2 (contacts of contacts) neighbors for home quarantine.</p>
+</li>
+<li>
+<p><strong>Super-spreader effect</strong> — Super-spreaders interact with all 8 Moore-neighborhood cells instead of a randomly selected single neighbor, dramatically increasing their transmission reach.</p>
+</li>
+</ol>
+<h2 id="implementation-notes">Implementation Notes</h2>
+<ul>
+<li><strong>Numba JIT compilation</strong>: The core simulation loop (<code>change_society</code>) and all subroutines (13 functions total) are compiled to native code via <code>@nb.njit(cache=True)</code>, yielding ~8x speedup. BFS contact tracing uses pre-allocated arrays with head/tail pointers instead of Python <code>deque</code>.</li>
+<li><strong>AoS &rarr; SoA conversion</strong>: The original C++ Array-of-Structures (<code>society.people[i].state</code>) is converted to Structure-of-Arrays (<code>people_state[i]</code>) using NumPy for cache-friendly vectorized operations.</li>
+<li><strong>Contact tracing</strong>: Changed from recursive DFS (C++) to iterative BFS (Python/Numba) to avoid stack overflow on large populations.</li>
+<li><strong>Policy vectorization</strong>: All policy applications (except vaccination) use <code>np.random.random(N) &lt; available</code> for O(1) per-person Bernoulli trials instead of scalar loops.</li>
+<li><strong>Incremental rendering</strong>: A dirty-set mechanism (<code>dirty_pids</code>) tracks only agents whose state changed each day, avoiding full-lattice repaints.</li>
+<li><strong>Chart rendering</strong>: Migrated from VCL TChart (C++) to pyqtgraph (Python) for real-time chart updates.</li>
+</ul>
+<h2 id="project-structure">Project Structure</h2>
+<pre><code>CASMIM/
+├── main.py                      # Entry point
+├── requirements.txt             # Python dependencies
+├── pyproject.toml               # Package metadata (PEP 621)
+├── CITATION.cff                 # Citation metadata
+├── CHANGELOG.md                 # Version history
+├── CONTRIBUTING.md              # Contribution guidelines
+├── LICENSE                      # MIT License
+├── index.html                   # GitHub Pages landing page
+├── 404.html                     # Custom 404 error page
+├── sitemap.xml                  # XML sitemap for search engines
+├── robots.txt                   # Crawler directives
+├── llms.txt                     # AI-readable project summary
+└── sars_sim/
+    ├── __init__.py
+    ├── models.py                # Data structures (StateEnum, SimulationParams, SimulationData)
+    ├── world.py                 # Lattice management, population initialization, agent distribution
+    ├── engine.py                # Core SEIR+D simulation engine, transmission and state transition logic
+    ├── engine_numba.py          # Numba JIT-compiled kernels (13 @njit functions, ~8x speedup)
+    ├── policies.py              # 8 public health policy implementations (vectorized)
+    ├── statistics.py            # Statistics tracking, Excel output (4 sheets)
+    └── gui/
+        ├── __init__.py
+        ├── main_window.py       # Main application window (PySide6)
+        ├── lattice_view.py      # Macro/micro lattice visualization (QImage ARGB32)
+        ├── charts.py            # 6 pyqtgraph chart widgets
+        ├── controls.py          # Parameter, disease, and policy control panels
+        └── status_bar.py        # 9-panel status bar
+</code></pre>
+<h2 id="authors">Authors</h2>
+<ul>
+<li><strong>Chung-Yuan Huang</strong> (黃崇源) — Department of Computer Science and Information Engineering, Chang Gung University, Taiwan (gscott@mail.cgu.edu.tw)</li>
+<li><strong>Chuen-Tsai Sun</strong> — Department of Computer Science, National Yang Ming Chiao Tung University, Taiwan</li>
+<li><strong>Ji-Lung Hsieh</strong> — Graduate Institute of Journalism, National Taiwan University, Taiwan</li>
+<li><strong>Yi-Ming Arthur Chen</strong> — Department of Information Management, National Central University, Taiwan</li>
+<li><strong>Holin Lin</strong> — Department of Sociology, National Taiwan University, Taiwan</li>
+</ul>
+<h2 id="citation">Citation</h2>
+<p>If you use this software in your research, please cite:</p>
+<blockquote>
+<p>Huang, C.-Y., Sun, C.-T., Hsieh, J.-L., Chen, Y.-M. A., &amp; Lin, H. (2005). A Novel Small-World Model: Using Social Mirror Identities for Epidemic Simulations. <em>SIMULATION</em>, 81(10), 671-699. https://doi.org/10.1177/0037549705061519</p>
+</blockquote>
+<p>See <code>CITATION.cff</code> for machine-readable citation metadata.</p>
+<h2 id="references">References</h2>
+<ol>
+<li>
+<p>Huang, C.-Y., Sun, C.-T., Hsieh, J.-L., &amp; Lin, H. (2004). Simulating SARS: Small-World Epidemiological Modeling and Public Health Policy Assessments. <em>Journal of Artificial Societies and Social Simulation</em>, 7(4), 2. http://jasss.soc.surrey.ac.uk/7/4/2.html</p>
+</li>
+<li>
+<p>Huang, C.-Y., Sun, C.-T., Hsieh, J.-L., Chen, Y.-M. A., &amp; Lin, H. (2005). A Novel Small-World Model: Using Social Mirror Identities for Epidemic Simulations. <em>SIMULATION</em>, 81(10), 671-699. https://doi.org/10.1177/0037549705061519</p>
+</li>
+</ol>
+<h2 id="license">License</h2>
+<p>This project is licensed under the MIT License. See <a href="LICENSE">LICENSE</a> for details.</p>
+<!-- PRERENDER-END -->
         </article>
     </main>
     <footer class="site-footer">
